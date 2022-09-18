@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run xcodebuild test
+      run: xcodebuild -scheme "GoogleInputTools" -configuration "Debug" -destination "platform=macOS" build-for-testing test-without-building
