@@ -12,8 +12,8 @@ import Foundation
 // oe: utf-8
 // app: demopage
 //
-class GoogleInputService: NSObject, GoogleInputServiceProtocol {
-    func send(currentWord: String, input: String, completion: @escaping (GoogleInputResult) -> Void) {
+public class GoogleInputService: NSObject, GoogleInputServiceProtocol {
+    public func send(currentWord: String, input: String, completion: @escaping (GoogleInputResult) -> Void) {
         guard currentWord.count > 0 || input.count > 0 else {
             return
         }
