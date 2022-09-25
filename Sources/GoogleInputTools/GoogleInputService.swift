@@ -13,6 +13,19 @@ import Foundation
 // app: demopage
 //
 public class GoogleInputService: NSObject, GoogleInputServiceProtocol {
+    public init(app: String = "demopage", num: Int = 30, itc: String = "yue-hant-t-i0-und") {
+        self.app = app
+        self.num = num
+        self.itc = itc
+    }
+
+    // Self-assigned identifier specified as the "app" query param
+    private let app: String
+    // Number of suggestions to fetch
+    private let num: Int
+    // The input language code. Default to Hong Kong cantonese.
+    private let itc: String
+
     public func send(currentWord: String, input: String, completion: @escaping (GoogleInputResult) -> Void) {
         guard currentWord.count > 0 || input.count > 0 else {
             return
@@ -22,13 +35,13 @@ public class GoogleInputService: NSObject, GoogleInputServiceProtocol {
         let text = currentWord.isEmpty ? input.lowercased() : "|\(currentWord),\(input.lowercased())"
         components.queryItems = [
             URLQueryItem(name: "text", value: text),
-            URLQueryItem(name: "itc", value: "yue-hant-t-i0-und"),
-            URLQueryItem(name: "num", value: "30"),
+            URLQueryItem(name: "itc", value: itc),
+            URLQueryItem(name: "num", value: String(num)),
             URLQueryItem(name: "cp", value: "0"),
             URLQueryItem(name: "cs", value: "1"),
             URLQueryItem(name: "ie", value: "utf-8"),
             URLQueryItem(name: "oe", value: "utf-8"),
-            URLQueryItem(name: "app", value: "demopage"),
+            URLQueryItem(name: "app", value: app),
         ]
         components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
         var request = URLRequest(url: components.url!)

@@ -5,7 +5,7 @@ final class GoogleInputServiceTests: XCTestCase {
     func testSendSingleCharacter() throws {
         let expectation = XCTestExpectation(description: "Send a single character to Google Input Tools service")
 
-        let service = GoogleInputService()
+        let service = GoogleInputService(app: "粵語拼音")
         service.send(currentWord: "", input: "a") { result in
             switch result {
             case let .success(response):
